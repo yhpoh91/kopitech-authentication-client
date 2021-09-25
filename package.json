@@ -1,6 +1,6 @@
 {
   "name": "kopitech-authentication-client",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Kopitech Authentication Client Library",
   "main": "dist/index.js",
   "files": [
