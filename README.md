@@ -21,14 +21,36 @@ expressApp.get(
 ```
 
 ## Config
-`enabled` (BOOLEAN: default true) (env `AUTHENTICATION_ENABLED`) - Whether authentication should be enabled
-`verifyUrl` (STRING) (env `AUTHENTICATION_VERIFY_URL`) - Kopitech Authenticator Service Verify URL
+`enabled` (BOOLEAN: default true) - Whether authentication should be enabled
 
-`noAuthSubject` (STRING: default `noauthsub`) (env `AUTHENTICATION_NO_AUTH_SUBJECT` - Subject ID used when Authentication is disabled
-`noAuthType` (STRING: default `client`) (env `AUTHENTICATION_NO_AUTH_TYPE` - Subject Type used when Authentication is disabled
+`verifyUrl` (STRING) - Kopitech Authenticator Service Verify URL
 
-`logEnabled` (BOOLEAN: default true) (env `AUTHENTICATION_LOG_ENABLED`) - Whether to log
-`logConfig` (BOOLEAN: default false) (env `AUTHENTICATION_LOG_CONFIG`) - Whether to log config upon changes
+`noAuthSubject` (STRING: default `noauthsub`) - Subject ID used when Authentication is disabled
+
+`noAuthType` (STRING: default `client`) - Subject Type used when Authentication is disabled
+
+`logEnabled` (BOOLEAN: default true) - Whether to log
+
+`logConfig` (BOOLEAN: default false) - Whether to log config upon changes
+
+
+## Environment Variable
+`AUTHENTICATION_ENABLED` (BOOLEAN: default true) - Whether authentication should be enabled
+
+`AUTHENTICATION_VERIFY_URL` (STRING) (env `AUTHENTICATION_VERIFY_URL`) - Kopitech Authenticator Service Verify URL
+
+`AUTHENTICATION_NO_AUTH_SUBJECT` (STRING: default `noauthsub`) - Subject ID used when Authentication is disabled
+
+`AUTHENTICATION_NO_AUTH_TYPE` (STRING: default `client`) - Subject Type used when Authentication is disabled
+
+`AUTHENTICATION_LOG_ENABLED` (BOOLEAN: default true) - Whether to log
+
+`AUTHENTICATION_LOG_CONFIG` (BOOLEAN: default false) - Whether to log config upon changes
+
+`LOGGING_ENABLED` (BOOLEAN default: true) - Whether authentication should be enabled
+
+`LOGGING_LEVEL` (BOOLEAN default: info) - Log level to be used (debug, info, warn, error)
+
 
 ## Available Functions
 ### Configure

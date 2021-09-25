@@ -1,6 +1,6 @@
 {
   "name": "kopitech-authentication-client",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Kopitech Authentication Client Library",
   "main": "dist/index.js",
   "files": [
@@ -15,7 +15,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "dotenv": "^8.2.0",
-    "log4js": "^6.3.0"
+    "kopitech-logger": "^1.0.0"
   },
   "keywords": [
     "kopitech",

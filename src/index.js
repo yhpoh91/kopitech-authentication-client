@@ -1,7 +1,7 @@
 require('dotenv').config();
 const axios = require('axios');
 
-const { L } = require('./services/logger')('Authentication Client');
+const { L } = require('kopitech-logger')('Authentication Client');
 
 const currentConfig = {
   enabled: (process.env.AUTHENTICATION_ENABLED || 'true').toLowerCase() === 'true',
