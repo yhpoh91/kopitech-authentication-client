@@ -1,0 +1,49 @@
+{
+  "name": "kopitech-authentication-client",
+  "version": "1.0.0",
+  "description": "Kopitech Authentication Client Library",
+  "main": "index.js",
+  "files": [
+    "/dist",
+    "/README.md"
+  ],
+  "scripts": {
+    "build": "babel --copy-files --out-dir dist --ignore *.test.js src",
+    "test": "mocha \"./{,!(node_modules)/**/}*.test.js\" --require esm"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.2.5",
+    "axios": "^0.19.2",
+    "dotenv": "^8.2.0",
+    "log4js": "^6.3.0",
+    "moment": "^2.24.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.10.1",
+    "@babel/core": "^7.10.2",
+    "@babel/node": "^7.10.1",
+    "@babel/preset-env": "^7.10.2",
+    "@babel/preset-flow": "^7.9.0",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^24.1.0",
+    "eslint": "^7.1.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "esm": "^3.2.25",
+    "mocha": "^7.2.0",
+    "node-minify": "^3.6.0",
+    "regenerator-runtime": "^0.13.5"
+  },
+  "keywords": [
+    "kopitech",
+    "oauth",
+    "auth",
+    "authN"
+  ],
+  "author": "Yee Hui Poh <yhpoh91@gmail.com>",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yhpoh91/kopitech-authentication-client"
+  }
+}
