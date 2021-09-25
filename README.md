@@ -21,12 +21,13 @@ expressApp.get(
 ```
 
 ## Config
-`authenticationEnabled` (BOOLEAN: default true) (env `AUTHENTICATION_ENABLED`) - Whether authentication should be enabled
-`authenticatorVerifyUrl` (STRING) (env `AUTHENTICATOR_SERVICE_VERIFY_URL`) - Kopitech Authenticator Service Verify URL
+`enabled` (BOOLEAN: default true) (env `AUTHENTICATION_ENABLED`) - Whether authentication should be enabled
+`verifyUrl` (STRING) (env `AUTHENTICATION_VERIFY_URL`) - Kopitech Authenticator Service Verify URL
 
-`noAuthSub` (STRING: default `noauthsub`) (env `AUTHENTICATION_NO_AUTH_SUBJECT` - Subject ID used when Authentication is disabled
-`noAuthTyp` (STRING: default `client`) (env `AUTHENTICATION_NO_AUTH_TYPE` - Subject Type used when Authentication is disabled
+`noAuthSubject` (STRING: default `noauthsub`) (env `AUTHENTICATION_NO_AUTH_SUBJECT` - Subject ID used when Authentication is disabled
+`noAuthType` (STRING: default `client`) (env `AUTHENTICATION_NO_AUTH_TYPE` - Subject Type used when Authentication is disabled
 
+`logEnabled` (BOOLEAN: default true) (env `AUTHENTICATION_LOG_ENABLED`) - Whether to log
 `logConfig` (BOOLEAN: default false) (env `AUTHENTICATION_LOG_CONFIG`) - Whether to log config upon changes
 
 ## Available Functions
@@ -36,12 +37,13 @@ expressApp.get(
 #### Configuration
 ```
 {
-  authenticationEnabled: true,
-  authenticatorVerifyUrl: http://localhost:8080/auth/verify,
+  enabled: true,
+  verifyUrl: http://localhost:8080/auth/verify,
 
-  noAuthSub: 'noauthsub',
-  noAuthTyp: 'client',
+  noAuthSubject: 'noauthsub',
+  noAuthType: 'client',
 
+  logEnabled: true,
   logConfig: false
 }
 ```

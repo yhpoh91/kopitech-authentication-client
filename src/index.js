@@ -1,20 +1,23 @@
+require('dotenv').config();
 const axios = require('axios');
 
 const { L } = require('./services/logger')('Authentication Client');
 
 const currentConfig = {
-  authenticationEnabled: (process.env.AUTHENTICATION_ENABLED || 'true').toLowerCase() === 'true',
-  authenticatorVerifyUrl: process.env.AUTHENTICATOR_SERVICE_VERIFY_URL,
+  enabled: (process.env.AUTHENTICATION_ENABLED || 'true').toLowerCase() === 'true',
+  verifyUrl: process.env.AUTHENTICATION_VERIFY_URL,
 
-  noAuthSub: process.env.AUTHENTICATION_NO_AUTH_SUBJECT || 'noauthsub',
-  noAuthTyp: process.env.AUTHENTICATION_NO_AUTH_TYPE || 'client',
+  noAuthSubject: process.env.AUTHENTICATION_NO_AUTH_SUBJECT || 'noauthsub',
+  noAuthType: process.env.AUTHENTICATION_NO_AUTH_TYPE || 'client',
 
+  logEnabled: (process.env.AUTHENTICATION_LOG_ENABLED || 'true').toLowerCase() === 'true',
   logConfig: (process.env.AUTHENTICATION_LOG_CONFIG || 'false').toLowerCase() === 'true',
-}
+};
+currentConfig.logEnabled && currentConfig.logConfig && L.info(currentConfig);
 
 const authenticate = async (accessToken) => {
   try {
-    const url = currentConfig.authenticatorVerifyUrl;
+    const url = currentConfig.verifyUrl;
     const body = { accessToken };
 
     const response = await axios.post(url, body);
@@ -27,35 +30,38 @@ const authenticate = async (accessToken) => {
 }
 
 const configure = (config = {}) => {
-  if (config.authenticationEnabled != null) {
-    L.info(`Updating Config [Authentication Enabled] - ${config.authenticationEnabled}`);
-    currentConfig.authenticationEnabled = config.authenticationEnabled;
-  }
-
-  if (config.authenticatorVerifyUrl != null) {
-    L.info(`Updating Config [Verify URL] - ${config.authenticatorVerifyUrl}`);
-    currentConfig.authenticatorVerifyUrl = config.authenticatorVerifyUrl;
+  if (config.logEnabled != null) {
+    currentConfig.logEnabled = config.logEnabled;
+    currentConfig.logEnabled && L.info(`Updating Config [Log Enabled] - ${config.logEnabled}`);
   }
 
   if (config.logConfig != null) {
-    L.info(`Updating Config [Log Config] - ${config.authenticatorVerifyUrl}`);
     currentConfig.logConfig = config.logConfig;
+    currentConfig.logEnabled && L.info(`Updating Config [Log Config] - ${config.logConfig}`);
   }
 
-  if (config.noAuthSub != null) {
-    L.info(`Updating Config [NoAuth Subject] - ${config.noAuthSub}`);
-    currentConfig.noAuthSub = config.noAuthSub;
+  if (config.enabled != null) {
+    currentConfig.enabled = config.enabled;
+    currentConfig.logEnabled && L.info(`Updating Config [Authentication Enabled] - ${config.enabled}`);
   }
 
-  if (config.noAuthTyp != null) {
-    L.info(`Updating Config [NoAuth Type] - ${config.noAuthTyp}`);
-    currentConfig.noAuthTyp = config.noAuthTyp;
+  if (config.verifyUrl != null) {
+    currentConfig.verifyUrl = config.verifyUrl;
+    currentConfig.logEnabled && L.info(`Updating Config [Verify URL] - ${config.verifyUrl}`);
   }
 
-  L.info(`Config Updated`);
-  if (currentConfig.logConfig) {
-    L.info(currentConfig);
+  if (config.noAuthSubject != null) {
+    currentConfig.noAuthSubject = config.noAuthSubject;
+    currentConfig.logEnabled && L.info(`Updating Config [NoAuth Subject] - ${config.noAuthSubject}`);
   }
+
+  if (config.noAuthType != null) {
+    currentConfig.noAuthType = config.noAuthType;
+    currentConfig.logEnabled && L.info(`Updating Config [NoAuth Type] - ${config.noAuthType}`);
+  }
+
+  currentConfig.logEnabled && L.info(`Config Updated`);
+  currentConfig.logEnabled && currentConfig.logConfig && L.info(currentConfig);
 };
 
 const expressAuthenticate = async (req, res, next) => {
@@ -63,7 +69,7 @@ const expressAuthenticate = async (req, res, next) => {
     let token;
 
     // Ensure authorization header is present
-    if (currentConfig.authenticationEnabled) {
+    if (currentConfig.enabled) {
       const authorizationHeader = req.headers['authorization'];
       if (authorizationHeader == null) {
         res.status(401).send('invalid authorization header');
@@ -83,11 +89,11 @@ const expressAuthenticate = async (req, res, next) => {
     let hasAccess = false;
     
     // Support NoAuth
-    if (!currentConfig.authenticationEnabled) {
+    if (!currentConfig.enabled) {
       hasAccess = true;
       req.accessor = {
-        sub: currentConfig.noAuthSub,
-        typ: currentConfig.noAuthTyp,
+        sub: currentConfig.noAuthSubject,
+        typ: currentConfig.noAuthType,
       };
     }
 
@@ -109,7 +115,7 @@ const expressAuthenticate = async (req, res, next) => {
 
     next();
   } catch (error) {
-    L.error(error); 
+    currentConfig.logEnabled && L.error(error); 
     res.status(401).send('unauthorized');
   }
 };
